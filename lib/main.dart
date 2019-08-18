@@ -13,7 +13,14 @@ class MyApp extends StatelessWidget {
       title: 'Personal Expenses',
       theme: ThemeData(
         primarySwatch: Colors.purple,
-        accentColor: Colors.amber
+        accentColor: Colors.amber,
+        fontFamily: 'Quicksand',
+        textTheme: ThemeData.light().textTheme.copyWith(
+          title: TextStyle(fontFamily: 'OpenSans', fontWeight: FontWeight.bold, fontSize: 18)
+        ),
+        appBarTheme: AppBarTheme(
+            textTheme: ThemeData.light().textTheme.copyWith(
+                title: TextStyle(fontFamily: 'OpenSans', fontSize: 20, fontWeight: FontWeight.bold))),
       ),
       debugShowCheckedModeBanner: false,
       home: MyHomePage(),
@@ -30,7 +37,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   final List<Transaction> _userTransactions = [
     Transaction(
         id: 't1', title: 'New Shoes', amount: 69.99, date: DateTime.now()),
@@ -53,10 +59,12 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _startAddNewTransaction(BuildContext ctx){
-    showModalBottomSheet(context: ctx, builder: (_){
-      return NewTransaction(_addNewTransaction);
-    });
+  void _startAddNewTransaction(BuildContext ctx) {
+    showModalBottomSheet(
+        context: ctx,
+        builder: (_) {
+          return NewTransaction(_addNewTransaction);
+        });
   }
 
   @override
@@ -65,11 +73,16 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text('Personal Expenses'),
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.add, ),onPressed: ()=>_startAddNewTransaction(context),)
+          IconButton(
+            icon: Icon(
+              Icons.add,
+            ),
+            onPressed: () => _startAddNewTransaction(context),
+          )
         ],
       ),
       body: SingleChildScrollView(
-              child: Column(
+        child: Column(
           // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Container(
@@ -86,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: ()=>_startAddNewTransaction(context),
+        onPressed: () => _startAddNewTransaction(context),
       ),
     );
   }
